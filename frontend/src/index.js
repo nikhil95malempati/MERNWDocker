@@ -8,6 +8,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import reportWebVitals from "./reportWebVitals";
 import "./assets/styles/bootstrap.custom.css";
 import HomeScreen from "./Screens/HomeScreen";
@@ -22,6 +23,8 @@ import ShippingScreen from "./Screens/ShippingScreen";
 import PrivateRoute from "./Components/PrivateRoute";
 import PaymentScreen from "./Screens/PaymentScreen";
 import PlaceOrderScreen from "./Screens/PlaceOrderScreen";
+import OrderScreen from "./Screens/OrderScreen";
+import ProfileScreen from "./Screens/ProfileScreen";
 //import 'bootstrap/dist/css/bootstrap.min.css'
 
 //replace Homescreen comp with HomeScreenUseEffect to get that component
@@ -39,6 +42,8 @@ const router = createBrowserRouter(
         <Route path="/shipping" element={<ShippingScreen />} />
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
+        <Route path="/order/:id" element={<OrderScreen />} />
+        <Route path='/profile' element={<ProfileScreen/>}/>
       </Route>
     </Route>
   )
@@ -48,7 +53,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PayPalScriptProvider deferLoading={true}>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );
